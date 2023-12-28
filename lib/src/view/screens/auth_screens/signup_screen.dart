@@ -23,15 +23,18 @@ class SignUpView extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/sebastian-pociecha.jpg'), // Replace with your image path
+            image: AssetImage('assets/sebastian-pociecha.jpg'),
+            // Replace with your image path
             fit: BoxFit.cover,
           ),
         ),
         child: Center(
           child: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 50),
-              child: Card(color: Colors.white30,
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 50),
+              child: Card(
+                color: Colors.white30,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -70,24 +73,27 @@ class SignUpView extends StatelessWidget {
                       hintText: AppStrings.confirmPassword,
                       obscureText: true,
                     ),
-                   const SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     ElevatedButton(
-                      onPressed: () async{
-                        _authController.signUp(
+                      onPressed: () async {
+                        var signup = await _authController.signUp(
                             email: _emailController.text,
                             password: _passwordController.text);
-                       await _fireStoreController.addUser(
-                            name: _name.text,
-                            age: _age.text,
-                            weight: _weight.text,
-                            height: _height.text,
-                            gender: _gender.text);
+                        debugPrint(signup);
+                        await _fireStoreController.addUser(
+                          name: _name.text,
+                          age: _age.text,
+                          weight: _weight.text,
+                          height: _height.text,
+                          gender: _gender.text,
+                          docId: signup,
+                        );
 
                         Get.back();
                       },
                       child: Text(AppStrings.signUpButton),
                     ),
-                   const SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     TextButton(
                       onPressed: () {
                         Get.back();

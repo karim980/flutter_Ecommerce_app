@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  String? get userId => _auth.currentUser?.uid;
   Rx<User?> user = Rx<User?>(null);
 
   @override
@@ -17,12 +18,11 @@ class AuthController extends GetxController {
   Future signIn(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
+
       if (_auth.currentUser?.emailVerified == false) {
         await _auth.currentUser?.sendEmailVerification();
-        return 1;
-      } else {
-        return null;
       }
+      return _auth.currentUser?.uid;
     } catch (e) {
       Get.snackbar("Error", "Authentication failed");
     }
@@ -37,7 +37,7 @@ class AuthController extends GetxController {
       if (_auth.currentUser?.emailVerified == false) {
         await _auth.currentUser?.sendEmailVerification();
       }
-      return null;
+      return _auth.currentUser?.uid;
     } on FirebaseAuthException catch (e) {
       print('Signup Error: $e');
       Get.snackbar("Error", "Sign up failed",

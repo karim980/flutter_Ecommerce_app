@@ -1,4 +1,5 @@
 import 'package:firebase_f_test/src/model/measure.dart';
+import 'package:firebase_f_test/src/view/screens/cart_screen.dart';
 import 'package:firebase_f_test/src/view/screens/item_detials.dart';
 import 'package:firebase_f_test/src/view/screens/recommendation_screen.dart';
 import 'package:firebase_f_test/src/view/screens/user_detials.dart';
@@ -14,33 +15,39 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         actions: [
+          IconButton(
+              onPressed: () {
+                Get.to(CartScreen());
+              }, icon: Icon(Icons.shopping_cart_outlined,color: Colors.white,)),
           InkWell(
             onTap: () {
               Get.to(UserInformation());
             },
             child: Padding(
-              padding: const EdgeInsets.only(right: 18),
+              padding: const EdgeInsets.only(right: 18,left: 10),
               child: CircleAvatar(
                   radius: 28,
                   backgroundImage:
                       AssetImage('assets/FB_IMG_1659972169968.jpg')),
             ),
-          )
+          ),
         ],
       ),
       body: Obx(() {
         var getItem = Get.find<ItemController>().item;
         var imageList = MeasureImage.measure;
-        var price='899 EG';
+        var price = '899 EG';
         if (Get.find<ItemController>().isLoading.value) {
           return const Center(child: CircularProgressIndicator());
         } else {
           return SingleChildScrollView(
             physics: BouncingScrollPhysics(),
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 5),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                   child: Row(
                     children: [
                       SizedBox(),
@@ -49,22 +56,32 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                SingleChildScrollView(scrollDirection: Axis.horizontal,
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
                   child: InkWell(
                     onTap: () {
                       Get.to(() => RecommendationScreen());
                     },
                     child: Row(
                       children: [
-                        Image(image: AssetImage('assets/man-img.jpg'),height: 150,),
-                        Image(image: AssetImage('assets/weman-img.jpg'),height: 150,),
+                        Image(
+                          image: AssetImage('assets/man-img.jpg'),
+                          height: 150,
+                        ),
+                        Image(
+                          image: AssetImage('assets/weman-img.jpg'),
+                          height: 150,
+                        ),
                       ],
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 25,top: 30),
-                  child: Text('Collection',style: TextStyle(fontSize: 25),),
+                  padding: const EdgeInsets.only(left: 25, top: 30),
+                  child: Text(
+                    'Collection',
+                    style: TextStyle(fontSize: 25),
+                  ),
                 ),
                 ListView.builder(
                   physics: const BouncingScrollPhysics(),

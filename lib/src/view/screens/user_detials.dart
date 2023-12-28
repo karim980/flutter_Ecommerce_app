@@ -1,4 +1,5 @@
 import 'package:firebase_f_test/core/colors/app_color.dart';
+import 'package:firebase_f_test/src/controller/auth_controller.dart';
 import 'package:firebase_f_test/src/view/widgets/button_widget.dart';
 import 'package:firebase_f_test/src/view/widgets/number_widget.dart';
 import 'package:firebase_f_test/src/view/widgets/text_widget.dart';
@@ -11,13 +12,14 @@ import '../../model/user_model.dart';
 
 class UserInformation extends StatelessWidget {
   final UserController _controller = UserController();
+  final AuthController _authController = AuthController();
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder<UserModel?>(
-        future: _controller.getUserInformation(),
+        future: _controller.getUserInformation(_authController.userId!),
         builder: (BuildContext context, AsyncSnapshot<UserModel?> snapshot) {
           if (snapshot.hasError) {
             Get.defaultDialog(
@@ -95,6 +97,7 @@ class UserInformation extends StatelessWidget {
                       NumberWidget(text: 'weight', number: user.weight),
                       Spacer(),
                       NumberWidget(text: 'height', number: user.height),
+                        // Text(user.favourites.toString())
                     ],),
                   ),
                 ),
