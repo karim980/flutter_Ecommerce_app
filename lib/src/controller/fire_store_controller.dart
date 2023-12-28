@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 class FireStoreController extends GetxController {
   CollectionReference users = FirebaseFirestore.instance.collection('users');
-  CollectionReference cart = FirebaseFirestore.instance.collection('users/UtAhGz0dXDcbups403eg/cart');
 
   Future<void> addUser({
     required String name,
@@ -12,35 +11,42 @@ class FireStoreController extends GetxController {
     required String weight,
     required String height,
     required String gender,
+    required String docId,
   }) {
     return users
-        .add({
+        .doc(docId)
+        .set({
           'full_name': name,
           'age': age,
           'weight': weight,
           'height': height,
           'gender': gender,
+          'favourite': [],
+          'cart': [],
         })
         .then((value) => debugPrint("User Added"))
         .catchError((error) => debugPrint("Failed to add user: $error"));
   }
 
-  Future<void> addToCart({
-    required String name,
-    required String image,
-    required String price,
-    required String gender,
+  Future<void> addToFavourite({
+    required String docId,
+    required List<Map<String, dynamic>> favourites,
   }) {
-    return cart
-        .add({
-          'full_name': name,
-          'gender': gender,
-          'price': price,
-          'image': image,
-        })
+    return users
+        .doc(docId)
+        .update({'favourite': favourites})
+        .then((value) => debugPrint("Added to fav"))
+        .catchError((error) => debugPrint("Failed to add fav: $error"));
+  }
+
+  Future<void> addToCart({
+    required String docId,
+    required List<Map<String, dynamic>> cart,
+  }) {
+    return users
+        .doc(docId)
+        .update({'cart': cart})
         .then((value) => debugPrint("Added to cart"))
         .catchError((error) => debugPrint("Failed to add cart: $error"));
   }
-
-
 }

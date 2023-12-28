@@ -2,13 +2,13 @@ import 'package:firebase_f_test/src/view/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controller/home_controller.dart';
-import 'cart.dart';
+import 'favourite_screen.dart';
 import 'home_screen.dart';
 
 class MaterialHomeView extends StatelessWidget {
   final List<Widget> pages = [
     HomeScreen(),
-    CartScreen(),
+    FavouriteScreen(),
     SettingsScreen(),
   ];
 
@@ -32,8 +32,8 @@ class MaterialHomeView extends StatelessWidget {
                 label: 'Home',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.local_grocery_store),
-                label: 'cart',
+                icon: Icon(Icons.favorite_outlined),
+                label: 'fav',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.settings),

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CartWidget extends StatelessWidget {
+class FavWidget extends StatelessWidget {
   String image;
   String name;
   String gender;
   String price;
 
-  CartWidget({
+  FavWidget({
     super.key,
     required this.image,
     required this.name,
@@ -39,6 +39,8 @@ class CartWidget extends StatelessWidget {
                   Text(gender),
                   const SizedBox(height: 8,),
                   Text(price),
+                  const SizedBox(height: 8,),
+                  Icon(Icons.favorite,color: Colors.red,)
                 ],
               ),
             )

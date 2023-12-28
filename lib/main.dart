@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_f_test/core/app_theme.dart';
 import 'package:firebase_f_test/src/controller/auth_controller.dart';
+import 'package:firebase_f_test/src/controller/cart_controller.dart';
 import 'package:firebase_f_test/src/controller/fire_store_controller.dart';
 import 'package:firebase_f_test/src/controller/home_controller.dart';
 import 'package:firebase_f_test/src/controller/item_controller.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         Get.put<HomeController>(HomeController());
         Get.put<ItemController>(ItemController());
         Get.put<RecommendationController>(RecommendationController());
+        Get.put<CartController>(CartController());
       }),
       home: GetX<AuthController>(
         init: _authController,
